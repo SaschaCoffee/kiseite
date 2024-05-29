@@ -1,0 +1,757 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>KI-Experiment: Code zu Excel für die Erstellung eines digitalen Zwillings in AnyLogic (unter Verwendung von GitHub Copilot)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="213d3cc3-1660-44a2-b4cd-3adf9673718d" class="page sans"><header><h1 class="page-title"><strong>KI-Experiment: Code zu Excel für die Erstellung eines digitalen Zwillings in AnyLogic (unter Verwendung von GitHub Copilot)</strong></h1><p class="page-description"></p></header><div class="page-body"><p id="8f713292-ece4-4373-90ef-2d4a3a18722b" class=""><strong>Experiment</strong>: Der Filialleiter einer großen Supermarktkette hat uns damit beauftragt, einen digitalen Zwilling seines Marktes zu erstellen. Ziel ist es, den Eingangsbereich des Marktes an einem Montag zu simulieren. An einem typischen Montag betreten insgesamt 5434 Kunden den Markt, wobei die Verteilung dieser Kunden einer Glockenkurve ähnelt. Die Öffnungszeiten des Marktes sind von 07:00 bis 21:00 Uhr.</p><ul id="c6189beb-a26f-476f-967b-1d892e46c6bb" class="toggle"><li><details open=""><summary>Ansatz Arrival Rate</summary><figure id="9df1c529-766e-4f81-903c-e341e6bbd0e3" class="image"><a href="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Design_ohne_Titel(25).png"><img style="width:816px" src="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Design_ohne_Titel(25).png"/></a></figure><p id="389e3eab-dfe8-4af8-89ba-3169645a004a" class="">
+</p></details></li></ul><ul id="d4ff0ca8-c259-438d-bdb2-fa7cf8d51717" class="toggle"><li><details open=""><summary>Ansatz: Arrival Table in Database</summary><figure id="984be306-7074-463e-ae25-878cccf2b06c" class="image"><a href="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Design_ohne_Titel(39).png"><img style="width:680px" src="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Design_ohne_Titel(39).png"/></a></figure><p id="d331967c-3388-4f22-80ba-56cf3a102c1f" class="">
+</p></details></li></ul><p id="7565933d-dbbe-4d58-99c8-15b8d342c87c" class=""><strong>Problem</strong>: AnyLogic bietet die Möglichkeit, Tabellen zu erstellen, jedoch sind diese ohne Werte. Es gibt keine einfache Funktion, die es ermöglicht, Tabellen automatisch mit Werten nach einem bestimmten Algorithmus zu füllen. Theoretisch könnten wir einen Algorithmus in Java programmieren, der bis zur Zahl XYZ zählt und die Werte nach einem bestimmten Muster verteilt, um die Agenten entsprechend zu erzeugen. Allerdings ist der Zeitaufwand hierfür sehr hoch, besonders für Laien oder Programmieranfänger.</p><p id="fb46c68e-a4cf-46b6-9cbb-68340e991e21" class=""><strong>Lösung</strong>: Die Nutzung von KI-Tools wie GitHub Copilot bietet eine effiziente Alternative. GitHub Copilot stellt Code zur Verfügung, der die Erstellung von Excel-Tabellen ermöglicht. Dieses Tool verfügt über eine Chatfunktion und erfordert keine tiefgehenden Programmierkenntnisse.</p><ul id="4e14ce41-59ba-4626-bc91-55ea717f587d" class="toggle"><li><details open=""><summary>GitHub Copilot GUI</summary><figure id="718a5d73-d3d5-4348-8386-ee7c6ca4f5f7" class="image"><a href="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled.png"><img style="width:680px" src="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled.png"/></a></figure><p id="e56d8075-5560-4d76-ae2f-71cec434c0b0" class="">
+</p><p id="da4d6131-f96b-4de3-b5b3-ff125d3f6fa7" class="">
+</p><p id="02409b79-fa61-463d-b92c-f79e7077d608" class="">
+</p></details></li></ul><p id="5a221e56-c75d-42f5-9807-bc0c7670fa31" class="">In dem Experiment wurde die Entwicklungsumgebung „Visual Studio Code“ genutzt, damit ist die Integration von GitHub Copilot möglich. In Visual Studio muss das Plugin „GitHub Copilot“ installiert sein und um es zu nutzen, ist eine Registrierung notwendig (Testversion von 30 Tagen verfügbar). Zusätzlich muss Python auf dem Arbeitsrechner installiert sein.</p><p id="520633b8-6ea5-4e4d-bb2b-d28fc107513e" class=""><strong>Prompt Verlauf</strong></p><ul id="de0ee256-f94a-497f-ae38-3dd448c62b81" class="toggle"><li><details open=""><summary><mark class="highlight-red">1. Anfrage</mark></summary><p id="c43e7075-070e-4d7f-803c-b462f2b4940e" class=""><em>„Wir haben einen Supermarkt. Montag erfasste der Supermarkt 5434 Kunden. Die Öffnungszeiten 06:00 - 21:59. Erstelle eine Excel Tabelle (xlsx), und verteile die 5434 Kunden auf die Uhrzeiten. Verteilung ähnelt einer Glockenkurve. </em></p><p id="e45e1d7c-35b2-449a-a9ed-32d15ecc6a2b" class=""><em>Aufbau der Tabelle </em></p><p id="2feb02ac-88d6-47d4-9837-2003fab484b8" class=""><em>Datum und Uhrzeit; Kundenanzahl </em></p><p id="8e7db6df-451a-4f62-82ed-58efebe206bb" class=""><em>Tag.Monat.Jahr Stunde:Minute; Integer.“</em></p><table id="964a03d1-ef90-4490-94aa-33a0599b8f22" class="simple-table"><tbody><tr id="512301e7-6984-4e75-8653-079dbd57e808"><td id=";&lt;\d" class=""><em>Datum und Uhrzeit</em></td><td id="TOw\" class=""><em>Kundenanzahl </em></td></tr><tr id="e3bea724-4a92-46f3-94f3-4978c4b5aea3"><td id=";&lt;\d" class=""><em>Tag.Monat.Jahr Stunde:Minute</em></td><td id="TOw\" class="">Integer</td></tr></tbody></table><ul id="bb020bf9-b687-4c62-8bdc-197ac87451dd" class="toggle"><li><details open=""><summary>Code</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d4183af4-641e-459a-89b5-0ab4b34111bc" class="code"><code class="language-Python">import pandas as pd
+import numpy as np
+from scipy.stats import norm
+
+# Anzahl der Kunden
+total_customers = 5434
+
+# Erstellen Sie ein DataFrame mit Zeitintervallen für den Tag
+time_range = pd.date_range(start=&quot;06:00&quot;, end=&quot;21:59&quot;, freq=&#x27;T&#x27;)
+df = pd.DataFrame(time_range, columns=[&#x27;Datum und Uhrzeit&#x27;])
+df[&#x27;Datum und Uhrzeit&#x27;] = df[&#x27;Datum und Uhrzeit&#x27;].dt.time
+
+# Generieren Sie eine Glockenkurve
+x = np.linspace(0, len(df)-1, len(df))
+distribution = norm.pdf(x, np.mean(x), np.std(x))
+
+# Verteilen Sie die Kunden auf die Zeitintervalle basierend auf der Glockenkurve
+df[&#x27;Kundenanzahl&#x27;] = (distribution / distribution.sum() * total_customers).astype(int)
+
+# Speichern Sie das DataFrame als Excel-Datei
+df.to_excel(&#x27;Supermarkt_Kundenverteilung.xlsx&#x27;, index=False)</code></pre></details></li></ul><ul id="3ee6f879-f8d3-4ca2-93b1-c54272a831d2" class="toggle"><li><details open=""><summary>Excel</summary><figure id="6a0bc5e5-e905-47c1-98ff-76cfb1e80a1a" class="image"><a href="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled%201.png"><img style="width:652px" src="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled%201.png"/></a></figure></details></li></ul><ul id="d2a194c4-259c-4494-95da-8bed25cd7f56" class="toggle"><li><details open=""><summary>Problem</summary><p id="3cf57e8c-52ed-4b96-aa81-4618a05dd36f" class="">Die Summe des Excelsheets (4864) pass nicht mit der Aufgabe (5434)</p></details></li></ul></details></li></ul><ul id="28d046b7-9740-453c-a3aa-657bf6a5d251" class="toggle"><li><details open=""><summary><mark class="highlight-red">2. Anfrage</mark></summary><p id="e0d9da73-e6fc-44cb-b880-351f20841c6a" class=""><em>„Wir haben einen Supermarkt. Montag erfasste der Supermarkt 5434 Kunden. Die Öffnungszeiten 06:00 - 21:59. Erstelle eine Excel Tabelle (xlsx), und verteile die 5434 Kunden auf die Uhrzeiten. Verteilung ähnelt einer Glockenkurve. Du kannst für die Spalte “Kundenanzahl” werte zwischen 1 - 10 nutzen, aber es wichtig, dass die aufsummierte Spalte “Kundenanzahl” der Exceltabelle auch 5434 entspricht.</em></p><p id="11f681a9-d85e-4710-9452-da55e40e6bec" class=""><em>Aufbau der Tabelle </em></p><p id="e54972ac-fea5-4819-a92e-fda0639dfb84" class=""><em>Datum und Uhrzeit; Kundenanzahl </em></p><p id="db8143bd-e938-4608-93c3-d9ad07f75b93" class=""><em>Tag.Monat.Jahr Stunde:Minute:Sekunde; Integer.“</em></p><ul id="69984fae-c982-4e0b-be9f-9d1a0603f7a3" class="toggle"><li><details open=""><summary>Code</summary><p id="6f9b7135-eb87-4b2d-865d-1dd08f6157ae" class="">Um diese Aufgabe zu erfüllen, können wir die folgenden Schritte ausführen:</p><ol type="1" id="121ab9c6-7c2e-43cc-b039-4417875f1890" class="numbered-list" start="1"><li>Erstellen Sie ein DataFrame, das alle Minuten des Tages von 06:00 bis 21:59 enthält.</li></ol><ol type="1" id="1ef56cc8-d591-444c-b0c6-c00bba449913" class="numbered-list" start="2"><li>Generieren Sie eine Glockenkurve (Normalverteilung) mit der gleichen Anzahl von Punkten wie die Anzahl der Minuten.</li></ol><ol type="1" id="d287cea2-543e-4e72-b72d-d489a378404b" class="numbered-list" start="3"><li>Skalieren Sie die Glockenkurve so, dass die Summe der Werte 5434 entspricht.</li></ol><ol type="1" id="33836292-752a-49bb-aae4-13a0af3fac57" class="numbered-list" start="4"><li>Verteilen Sie die Kunden auf die Zeitintervalle basierend auf der Glockenkurve.</li></ol><ol type="1" id="a58efbf6-a43d-4a7f-a82e-2f8c30d4e5e3" class="numbered-list" start="5"><li>Speichern Sie das DataFrame als Excel-Datei.</li></ol><p id="27136c9a-259b-4064-b6e5-56b83f1de0bc" class="">Dieser Code erstellt eine Excel-Datei namens &quot;Supermarkt_Kundenverteilung.xlsx&quot;, die die Verteilung der Kunden über den Tag darstellt. Die Kundenanzahl für jedes Zeitintervall ist auf ganze Zahlen gerundet und die Summe der Kundenanzahl entspricht 5434.</p><p id="b99dce26-7710-4b46-8e0f-72fffa028715" class="">
+</p><p id="9cf798a0-ca4b-4372-ab59-af293776906a" class="">Hier ist der Python-Code, der diese Schritte ausführt:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f41027ad-73a0-4c35-9f7e-4ce89e77bd33" class="code"><code class="language-Python">import pandas as pd
+import numpy as np
+from scipy.stats import norm
+
+# Gesamtzahl der Kunden
+total_customers = 5434
+
+# Erstellen Sie ein DataFrame mit allen Minuten des Tages von 06:00 bis 21:59
+time_range = pd.date_range(start=&quot;06:00&quot;, end=&quot;21:59&quot;, freq=&#x27;T&#x27;)
+df = pd.DataFrame(time_range, columns=[&#x27;Datum und Uhrzeit&#x27;])
+
+# Generieren Sie eine Glockenkurve (Normalverteilung)
+x = np.linspace(0, len(df)-1, len(df))
+distribution = norm.pdf(x, np.mean(x), np.std(x))
+
+# Skalieren Sie die Glockenkurve so, dass die Summe der Werte 5434 entspricht
+scaled_distribution = distribution / distribution.sum() * total_customers
+
+# Verteilen Sie die Kunden auf die Zeitintervalle basierend auf der Glockenkurve
+# Runden Sie die Werte auf ganze Zahlen und stellen Sie sicher, dass die Summe 5434 entspricht
+df[&#x27;Kundenanzahl&#x27;] = np.round(scaled_distribution).astype(int)
+df.loc[df[&#x27;Kundenanzahl&#x27;] &gt; 10, &#x27;Kundenanzahl&#x27;] = 10
+remaining = total_customers - df[&#x27;Kundenanzahl&#x27;].sum()
+df.loc[df[&#x27;Kundenanzahl&#x27;] &lt; 10, &#x27;Kundenanzahl&#x27;] += 1
+df[&#x27;Kundenanzahl&#x27;] = df[&#x27;Kundenanzahl&#x27;] - (df[&#x27;Kundenanzahl&#x27;].sum() - total_customers)
+
+# Speichern Sie das DataFrame als Excel-Datei
+df.to_excel(&#x27;Supermarkt_Kundenverteilung.xlsx&#x27;, index=False)</code></pre></details></li></ul><ul id="c1c5d74b-c52f-46fc-b3f7-83dbbe7a7d9c" class="toggle"><li><details open=""><summary>Excel</summary><figure id="bda0b6bf-9198-4361-b7ea-37a8f3652660" class="image"><a href="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled%202.png"><img style="width:481px" src="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled%202.png"/></a></figure></details></li></ul></details></li></ul><ul id="6b83c958-02cb-49a2-a4ee-5faaa23a7382" class="toggle"><li><details open=""><summary><mark class="highlight-teal">3.  Anfrage </mark></summary><p id="43ed85a0-ed89-4b4c-bd91-892c719c7289" class="">In Excel Tabelle hab ich negative Zahlen -937,-936. Ich will, dass du die Kundenanzahl <em>5434 auf die Uhrzeiten verteilst. Wir haben 960 Zeilen. Wenn ich die 960 Zeilen aufsummiere, dann muss die Summe 5434 ergeben. Du kannst für jede Zeile werte von 0-10 benutzen, aber die Verteilung muss einer Glockenkurve ähneln.</em></p><ul id="a9a09d5d-1926-4086-b8aa-7d81fd312feb" class="toggle"><li><details open=""><summary>Code</summary><p id="eeb66ff6-5971-466b-b208-1c85182199aa" class="">Entschuldigung für das Missverständnis. Hier ist eine überarbeitete Version des Codes, die sicherstellt, dass alle Werte in der &quot;Kundenanzahl&quot; Spalte positiv sind und die Summe der &quot;Kundenanzahl&quot; Spalte 5434 ergibt</p><p id="ebde1ea7-84e3-4293-9be8-850e2f920bea" class="">Dieser Code erstellt eine Excel-Datei namens &quot;Supermarkt_Kundenverteilung.xlsx&quot;, die die Verteilung der Kunden über den Tag darstellt. Die Kundenanzahl für jedes Zeitintervall ist auf ganze Zahlen gerundet und die Summe der Kundenanzahl entspricht 5434. Alle Werte in der &quot;Kundenanzahl&quot; Spalte sind positiv</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="25b2bb65-f03c-40d9-a647-cc357fde7b3f" class="code"><code class="language-Python">import pandas as pd
+import numpy as np
+from scipy.stats import norm
+
+# Gesamtzahl der Kunden
+total_customers = 5434
+
+# Erstellen Sie ein DataFrame mit allen Minuten des Tages von 06:00 bis 21:59
+time_range = pd.date_range(start=&quot;06:00&quot;, end=&quot;21:59&quot;, freq=&#x27;T&#x27;)
+df = pd.DataFrame(time_range, columns=[&#x27;Datum und Uhrzeit&#x27;])
+
+# Generieren Sie eine Glockenkurve (Normalverteilung)
+x = np.linspace(-3, 3, len(df))
+distribution = norm.pdf(x, 0, 1)
+
+# Skalieren Sie die Glockenkurve so, dass die Summe der Werte 5434 entspricht und die Werte zwischen 0 und 10 liegen
+scaled_distribution = distribution / distribution.sum() * total_customers
+scaled_distribution = np.clip(scaled_distribution, 0, 10)
+
+# Runden Sie die Werte auf ganze Zahlen und stellen Sie sicher, dass die Summe 5434 entspricht
+df[&#x27;Kundenanzahl&#x27;] = np.round(scaled_distribution).astype(int)
+difference = total_customers - df[&#x27;Kundenanzahl&#x27;].sum()
+df.iloc[:difference, df.columns.get_loc(&#x27;Kundenanzahl&#x27;)] += 1
+
+# Speichern Sie das DataFrame als Excel-Datei
+df.to_excel(&#x27;Supermarkt_Kundenverteilung.xlsx&#x27;, index=False)</code></pre></details></li></ul><ul id="1a2e44b7-1cf0-4eb4-afc2-5d032c9a9540" class="toggle"><li><details open=""><summary>Excel </summary><figure id="3b4178dd-3406-43f6-b213-d67d2e8142fe" class="image"><a href="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled%203.png"><img style="width:1041px" src="KI-Experiment%20Code%20zu%20Excel%20fu%CC%88r%20die%20Erstellung%20ei%20213d3cc3166044a2b4cd3adf9673718d/Untitled%203.png"/></a></figure></details></li></ul></details></li></ul><p id="4c8d29d5-3438-46ba-aff2-64187eff47ef" class=""><strong>Fazit</strong>: GitHub Copilot eignet sich hervorragend, um Code zu generieren. Dennoch sollte sich der Anwender nicht vollständig auf GitHub Copilot verlassen. Die generierten Daten müssen getestet werden. Die Erstellung der Glockenkurvenverteilung stellte für die KI keine Herausforderung dar, jedoch war die Verteilung der Kundenanzahl von 5434 eine Hürde.</p><p id="32496603-fa13-41a9-b4a8-25f67d7ec2e6" class="">Letztendlich musste ich der KI explizit befehlen, den Output mit dem Input zu vergleichen. Ich musste die Anzahl der Zeilen berechnen (1 Stunde entspricht 60 Zeilen in Excel, 16 Stunden somit 960 Zeilen) und der KI dann befehlen, die 960 Zeilen aufzusummieren und zu überprüfen, ob die Summe der in der Aufgabenstellung angegebenen Zahl entspricht.</p><p id="fc577bcb-c588-44fb-b95e-2ca996d71e7b" class="">
+</p><p id="4ce88566-06ea-4199-8a33-bca680820f20" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
